@@ -1,5 +1,6 @@
-import { AuthService } from './../../../@core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '@graphql/services/api.service';
+import { AuthService } from '@core/services/auth.service';
 import { UsersService } from '@core/services/users.service';
 
 @Component({
@@ -9,17 +10,16 @@ import { UsersService } from '@core/services/users.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private usersApi: UsersService, private auht: AuthService) { }
+  constructor(private usersApi: UsersService, private auth: AuthService) { }
 
   ngOnInit(): void {
-    /*this.auht.login('ali@gmail.com', '1234').subscribe(result => {
-      console.log(result);
+
+    this.usersApi.getUsers(2, 1).subscribe( result => {
+      console.log(result); // { { status message users: []}
     });
-    this.usersApi.getUsers().subscribe( result => {
-      console.log(result);
-    });
-    this.auht.getMe().subscribe( result => {
-      console.log(result);
+
+    /*this.auth.getMe().subscribe( result => {
+      console.log(result); // { status message user: {}}
     });*/
   }
 
