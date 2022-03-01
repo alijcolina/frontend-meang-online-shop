@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { ITableColumns } from '@core/interfaces/table-columns.interface';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentNode } from 'graphql';
 import { TablePaginationService } from './table-pagination.service';
 import { IResultData, IInfoPage } from '@core/interfaces/result-data.interface';
 import { map } from 'rxjs/internal/operators/map';
 import { Observable } from 'rxjs/internal/Observable';
-import { ITableColumns } from '@core/interfaces/table-columns.interface';
 
 
 @Component({
@@ -19,6 +19,7 @@ export class TablePaginationComponent implements OnInit {
   @Input() include = true;
   @Input() resultData: IResultData;
   @Input() tableColumns: Array<ITableColumns> = undefined;
+  @Output() manageItem = new EventEmitter<Array<any>>();
   infoPage: IInfoPage;
   data$: Observable<any>;
   constructor(private service: TablePaginationService) { }
@@ -63,5 +64,9 @@ export class TablePaginationComponent implements OnInit {
 
     console.log(this.infoPage.page);
     this.loadData();
+  }
+  manageAction(action: string, data: any) {
+    console.log(action, data);
+    this.manageItem.emit([action, data]);
   }
 }

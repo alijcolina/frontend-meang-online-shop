@@ -4,6 +4,7 @@ import { IRegisterForm, IResultRegister } from '@core/interfaces/register.interf
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '@core/services/users.service';
 import { Router } from '@angular/router';
+import { EMAIL_PATTERN } from '@core/constans/regex';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  emailPattern = EMAIL_PATTERN;
   register: IRegisterForm = {
     name: '',
     lastname: '',
