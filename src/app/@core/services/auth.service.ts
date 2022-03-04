@@ -31,7 +31,7 @@ export class AuthService extends ApiService{
         this.updateSession(result);
       });
       console.log('Sesión iniciada');
-      return;      
+      return;
     }
     this.updateSession({
       status: false
@@ -41,7 +41,7 @@ export class AuthService extends ApiService{
 
   login(email: string, password: string) {
     return this.get(LOGIN_QUERY, { email, password, include: false }).pipe(
-      map( (result: any)  =>{
+      map( (result: any)  => {
         return result.login;
       })
     );

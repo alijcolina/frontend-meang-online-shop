@@ -1,4 +1,5 @@
-import { EMAIL_PATTERN } from './../../@core/constans/regex';
+import { EMAIL_PATTERN } from '@core/constans/regex';
+
 
 import Swal from 'sweetalert2';
 
