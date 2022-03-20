@@ -10,6 +10,7 @@ export class ProductCategoryListComponent {
   constructor() { }
   @Input() title = 'Título de la categoría';
   @Input() productsList: Array<IProduct> = [];
+  @Input() description = '';
   myCurrency = CURRENCIES_SYMBOL[CURRENCY_LIST.US_DOLLAR]; // $ <=======================
   addToCart($event: IProduct) {
     console.log('Add to cart', $event);

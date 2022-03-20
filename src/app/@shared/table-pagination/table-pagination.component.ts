@@ -1,4 +1,6 @@
 import { ACTIVE_FILTERS } from '@core/constans/filters';
+import { closeAlert } from '@shared/alerts/alerts';
+import { loadData } from './../alerts/alerts';
 
 import { ITableColumns } from '@core/interfaces/table-columns.interface';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -7,8 +9,6 @@ import { TablePaginationService } from './table-pagination.service';
 import { IResultData, IInfoPage } from '@core/interfaces/result-data.interface';
 import { map } from 'rxjs/internal/operators/map';
 import { Observable } from 'rxjs/internal/Observable';
-
-
 
 @Component({
   selector: 'app-table-pagination',
@@ -26,6 +26,7 @@ export class TablePaginationComponent implements OnInit {
   @Output() manageItem = new EventEmitter<Array<any>>();
   infoPage: IInfoPage;
   data$: Observable<any>;
+  loading: boolean;
   constructor(private service: TablePaginationService) { }
 
   ngOnInit(): void {
@@ -48,6 +49,8 @@ export class TablePaginationComponent implements OnInit {
   }
 
   loadData() {
+    this.loading = true;
+    loadData('Cargando los datos', 'Espera un instante');
     const variables = {
       page: this.infoPage.page,
       itemsPage: this.infoPage.itemsPage,
@@ -59,19 +62,19 @@ export class TablePaginationComponent implements OnInit {
         const data = result[this.resultData.definitionKey];
         this.infoPage.pages = data.info.pages;
         this.infoPage.total = data.info.total;
+        this.loading = false;
+        closeAlert();
         return data[this.resultData.listKey];
       }
     ));
-
-
   }
-  changePage() {
 
-    console.log(this.infoPage.page);
+  changePage() {
     this.loadData();
   }
+
   manageAction(action: string, data: any) {
-    console.log(action, data);
     this.manageItem.emit([action, data]);
   }
+
 }

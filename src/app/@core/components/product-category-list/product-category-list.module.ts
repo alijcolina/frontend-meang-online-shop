@@ -1,3 +1,5 @@
+import { FormsModule } from '@angular/forms';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductCategoryListComponent } from './product-category-list.component';
@@ -9,7 +11,9 @@ import { ProductItemModule } from '@mugan86/ng-shop-ui';
   declarations: [ProductCategoryListComponent],
   imports: [
     CommonModule,
-    ProductItemModule
+    ProductItemModule,
+    NgbPaginationModule,
+    FormsModule
   ],
   exports: [ProductCategoryListComponent],
 })
