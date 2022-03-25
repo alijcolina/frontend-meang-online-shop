@@ -12,11 +12,11 @@ export class ApiService {
   [x: string]: any;
 
   constructor(private apollo: Apollo) { }
-  protected get(query: DocumentNode, variables: object = {}, context: object = {}){
+  protected get(query: DocumentNode, variables: object = {}, context: object = {}, cache: boolean = true){
     return this.apollo.watchQuery({
       query,
       variables,
-      fetchPolicy: 'network-only'
+      fetchPolicy: (cache) ? 'network-only' : 'no-cache'
     }).valueChanges.pipe(map((result) => {
       return result.data;
     }));

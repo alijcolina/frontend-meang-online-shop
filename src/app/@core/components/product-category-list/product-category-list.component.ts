@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { CURRENCIES_SYMBOL, CURRENCY_LIST } from '@mugan86/ng-shop-ui';
@@ -7,7 +8,7 @@ import { CURRENCIES_SYMBOL, CURRENCY_LIST } from '@mugan86/ng-shop-ui';
   styleUrls: ['./product-category-list.component.scss']
 })
 export class ProductCategoryListComponent {
-  constructor() { }
+  constructor(private router: Router) { }
   @Input() title = 'Título de la categoría';
   @Input() productsList: Array<IProduct> = [];
   @Input() description = '';
@@ -17,5 +18,6 @@ export class ProductCategoryListComponent {
   }
   showProductDetails($event: IProduct) {
     console.log('Show details', $event);
+    this.router.navigate(['/games/details', +$event.id]);
   }
 }

@@ -1,4 +1,3 @@
-import { IMeData } from './../../../@core/interfaces/session.interface';
 import gql from 'graphql-tag';
 
 export const SHOP_PRODUCT_FRAGMENT = gql`
@@ -13,11 +12,18 @@ export const SHOP_PRODUCT_FRAGMENT = gql`
         value
         count
       }
+      screenshoot @include(if: $relationScreens)
     }
-    platform @include(if: $showPlatform) {
+    platform @include(if: $showPlatform){
       id
       name
       slug
+    }
+    relationalProducts @include(if: $relationScreens) {
+      id
+      platform {
+        name
+      }
     }
   }
 `;
