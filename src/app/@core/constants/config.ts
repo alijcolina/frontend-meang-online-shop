@@ -10,3 +10,4 @@ export const CURRENCY_CODE = CURRENCY_LIST.US_DOLLAR;
 export const REDIRECTS_ROUTES = [
     '/checkout'
 ];
+

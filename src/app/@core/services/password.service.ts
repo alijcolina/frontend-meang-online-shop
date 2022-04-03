@@ -1,9 +1,9 @@
-import { CHANGE_PASSWORD, RESET_PASSWORD } from '@graphql/operations/mutation/password';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from '@graphql/services/api.service';
 import { Apollo } from 'apollo-angular';
+import { RESET_PASSWORD, CHANGE_PASSWORD } from '@graphql/operations/mutation/password';
 import { map } from 'rxjs/internal/operators/map';
-import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class PasswordService extends ApiService{
     }));
   }
 
-change(token: string, password: string) {
+  change(token: string, password: string) {
     const user = JSON.parse(atob(token.split('.')[1])).user;
     return this.set(
       CHANGE_PASSWORD,
@@ -42,5 +42,4 @@ change(token: string, password: string) {
       return result.changePassword;
     }));
   }
-
 }

@@ -1,8 +1,7 @@
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { ICarouselItem } from '@mugan86/ng-shop-ui/lib/interfaces/carousel-item.interface';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '@core/services/products.service';
-import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
-import { ACTIVE_FILTERS } from '@core/constans/filters';
 import { loadData, closeAlert } from '@shared/alerts/alerts';
 @Component({
   selector: 'app-home',
@@ -11,9 +10,9 @@ import { loadData, closeAlert } from '@shared/alerts/alerts';
 })
 export class HomeComponent implements OnInit {
   items: ICarouselItem[] = [];
-  listOne;
-  listTwo;
-  listThree;
+  listOne: IProduct[];
+  listTwo: IProduct[];
+  listThree: IProduct[];
   loading: boolean;
   constructor(private products: ProductsService) { }
 
@@ -21,7 +20,6 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     loadData('Cargando datos', 'Espera mientras carga la información');
     this.products.getHomePage().subscribe( data => {
-      console.log(data);
       this.listOne = data.ps4;
       this.listTwo = data.topPrice;
       this.listThree = data.pc;
@@ -30,6 +28,7 @@ export class HomeComponent implements OnInit {
       this.loading = false;
     });
   }
+
   private manageCarousel(list) {
     const itemsValues: Array<ICarouselItem> = [];
     list.shopProducts.map((item) => {

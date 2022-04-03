@@ -1,10 +1,9 @@
-
 import { Component, OnInit } from '@angular/core';
 import { EMAIL_PATTERN } from '@core/constans/regex';
+
 import { PasswordService } from '@core/services/password.service';
 import { basicAlert } from '@shared/alerts/toasts';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
-
 
 @Component({
   selector: 'app-forgot',

@@ -1,12 +1,11 @@
-import { LOGIN_QUERY, ME_DATA_QUERY } from './../../@graphql/operations/query/user';
-import { Apollo } from 'apollo-angular';
-import { ApiService } from '@graphql/services/api.service';
-import { Injectable } from '@angular/core';
-import { map } from 'rxjs/internal/operators/map';
+import { ISession, IMeData } from '@core/interfaces/session.interface';
 import { HttpHeaders } from '@angular/common/http';
-import { IMeData, ISession } from '@core/interfaces/session.interface';
+import { Injectable } from '@angular/core';
+import { ApiService } from '@graphql/services/api.service';
+import { LOGIN_QUERY, ME_DATA_QUERY } from '@graphql/operations/query/user';
+import { Apollo } from 'apollo-angular';
+import { map } from 'rxjs/internal/operators/map';
 import { Subject } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +21,7 @@ export class AuthService extends ApiService{
   }
 
   start() {
+
     if (this.getSession() !== null) {
       this.getMe().subscribe((result: IMeData) => {
         if (!result.status) {
@@ -39,9 +39,10 @@ export class AuthService extends ApiService{
     console.log('Sesión no iniciada');
   }
 
+  // Añadir métodos para consumir la info de la API
   login(email: string, password: string) {
     return this.get(LOGIN_QUERY, { email, password, include: false }).pipe(
-      map( (result: any)  => {
+      map( (result: any) => {
         return result.login;
       })
     );
@@ -52,8 +53,8 @@ export class AuthService extends ApiService{
       include: false
     },
     {
-      header: new HttpHeaders({
-          Authorization: (this.getSession() as ISession).token
+      headers: new HttpHeaders({
+        Authorization: (this.getSession() as ISession).token
       })
     }).pipe(map((result: any) => {
       return result.me;
@@ -66,7 +67,7 @@ export class AuthService extends ApiService{
 
     const session: ISession = {
       expiresIn: new Date(date).toISOString(),
-      token,
+      token
     };
     localStorage.setItem('session', JSON.stringify(session));
   }

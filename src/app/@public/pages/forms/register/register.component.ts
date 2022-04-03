@@ -1,8 +1,9 @@
-import { TYPE_ALERT } from './../../../../@shared/alerts/values.config';
+
 import { basicAlert } from '@shared/alerts/toasts';
 import { IRegisterForm, IResultRegister } from '@core/interfaces/register.interface';
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '@core/services/users.service';
+import { TYPE_ALERT } from '@shared/alerts/values.config';
 import { Router } from '@angular/router';
 import { EMAIL_PATTERN } from '@core/constans/regex';
 
@@ -18,30 +19,25 @@ export class RegisterComponent implements OnInit {
     lastname: '',
     email: '',
     password: '',
-    birthday: '',
+    birthday: ''
   };
   constructor(private api: UsersService, private router: Router) { }
 
   ngOnInit(): void {
     const data = new Date();
     data.setFullYear(data.getFullYear() - 18);
-    this.register.birthday = (data.toDateString()).substring(0, 10);
-    console.log(this.register);
+    this.register.birthday = (data.toISOString()).substring(0, 10);
   }
-  private formaNumbers(num: number | string ) {
+  private formatNumbers(num: number | string ) {
     return (+num < 10) ? `0${num}` : num;
   }
-
   dataAsign($event) {
-    console.log('register cogiendo dato, $event');
-    const fecha = `${$event.year}-${this.formaNumbers($event.month)}-${this.formaNumbers($event.day)}`;
+    const fecha = `${$event.year}-${this.formatNumbers($event.month)}-${this.formatNumbers($event.day)}`;
     this.register.birthday = fecha;
   }
 
   add() {
-    console.log('Enviando datos', this.register);
     this.api.register(this.register).subscribe((result: IResultRegister) => {
-      console.log('Result', result);
       if (!result.status) {
         basicAlert(TYPE_ALERT.WARNING, result.message);
         return;

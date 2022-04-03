@@ -15,9 +15,12 @@ export class CartService {
   };
   // Para gestionar los productos con las notificaciones cuando se realizan acciones como borrar
   public itemsVar = new Subject<ICart>();
-  public; itemsVar$ = this.itemsVar.asObservable();
+  public itemsVar$ = this.itemsVar.asObservable();
   constructor() { }
 
+  /**
+   * Inicializar el carrito de compra para tener la información almacenada
+   */
   initialize() {
     const storeData = JSON.parse(localStorage.getItem('cart'));
     if (storeData !== null) {
@@ -31,7 +34,7 @@ export class CartService {
   }
 
   manageProduct(product: IProduct) {
-    // Obtener cantidad de productos en el carrito
+    // Obtener cantidad de productps en el carrito
     const productTotal = this.cart.products.length;
     // Comprobamos si tenemos productos
     if (productTotal === 0) {
@@ -61,13 +64,13 @@ export class CartService {
     this.checkoutTotal();
   }
 
-  /**  Añadir la información final antes de hacer el pedido */
+  /** Añadir la información final antes de hacer el pedido */
   checkoutTotal() {
     let subtotal = 0;
     let total = 0;
     this.cart.products.map((product: IProduct) => {
       subtotal += product.qty; // subtotal = subtotal + product.qty
-      total += (product.qty * product.price);
+      total  += (product.qty * product.price);
     });
 
     this.cart.total = total;
@@ -77,31 +80,29 @@ export class CartService {
   }
 
   clear() {
-      this.products = [];
-      this.cart = {
+    this.products =  [];
+    this.cart  = {
       total: 0,
       subtotal: 0,
       products: this.products
     };
-      this.setInfo();
-      console.log('Hemos borrado la información');
-      return this.cart;
+    this.setInfo();
+    console.log('Hemos borrado la información');
+    return this.cart;
   }
 
   private setInfo() {
     localStorage.setItem('cart', JSON.stringify(this.cart));
     this.updateItemsInCart(this.cart);
   }
+
   open() {
-    console.log('Open nav');
     document.getElementById('mySidenav').style.width = '600px';
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('app').style.overflow = 'hidden';
-
   }
 
-  close(){
-    console.log('Close nav');
+  close() {
     document.getElementById('mySidenav').style.width = '0';
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('app').style.overflow = 'auto';

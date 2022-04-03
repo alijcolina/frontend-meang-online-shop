@@ -20,10 +20,10 @@
           [ngClass]="{'is-valid': name.valid, 'is-invalid': name.invalid}"
           required
         />
-        <div class="danger alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
-            <div *ngIf="name.errors.required">
-              Introduzca un nombre por favor
-            </div>
+        <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors.required">
+            Introduzca un nombre por favor
+          </div>
         </div>
         <label for="lastname"><b>Apellido / s</b></label>
         <input
@@ -36,10 +36,10 @@
           [ngClass]="{'is-valid': lastname.valid, 'is-invalid': lastname.invalid}"
           required
         />
-        <div class="danger alert-danger" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
-            <div *ngIf="lastname.errors.required">
-              Introduzca un apellido / s por favor
-            </div>
+        <div class="alert alert-danger" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+          <div *ngIf="lastname.errors.required">
+            Introduzca un apellido o apellidos por favor
+          </div>
         </div>
         <label for="email"><b>Fecha de nacimiento</b></label>
         <app-date-picker-legal-age
@@ -58,19 +58,19 @@
           required
         />
         <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
-            <div *ngIf="email.errors.required">
-              Introduzca email por favor
-            </div>
-            <div *ngIf="email.errors.pattern">
-              Introduzca un email con el formato correcto por favor. Pj: contacto@alijcolina.com
-            </div>
+          <div *ngIf="email.errors.required">
+            Introduzca email por favor
+          </div>
+          <div *ngIf="email.errors.pattern">
+            Introduzca un email con el formato correcto por favor. Pj: contacto@anartz-mugika.com
+          </div>
         </div>
 
-        <label for="psw"><b>Password</b></label>
+        <label for="password"><b>Password</b></label>
         <input
           type="password"
-          placeholder="Enter Password"
-          name="Password"
+          placeholder="Introduzca la contraseña"
+          name="password"
           #password="ngModel"
           [(ngModel)]="register.password"
           class="form-control"
@@ -78,18 +78,18 @@
           required
         />
         <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
-            <div *ngIf="password.errors.required">
-              Introduzca una contraseña por favor
-            </div>
+          <div *ngIf="password.errors.required">
+            Introduzca una contraseña por favor
+          </div>
         </div>
 
         <p>
           By creating an account you agree to our
-          <a href="#" style="color: dodgerblue">Terms & Privacy</a>.
+          <a href="#" style="color: dodgerblue;">Terms & Privacy</a>.
         </p>
         <p>
           ¿Ya tiene una cuenta?
-          <a [routerLink]="['/login']" style="color: dodgerblue"
+          <a [routerLink]="['/login']" style="color: dodgerblue;"
             >Iniciar sesión</a
           >.
         </p>

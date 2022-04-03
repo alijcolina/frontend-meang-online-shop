@@ -22,7 +22,6 @@ export class ChangePasswordComponent implements OnInit {
   ) {
     this.route.params.subscribe((params) => {
       this.token = params.token;
-      console.log(this.token);
     });
   }
 
@@ -31,19 +30,9 @@ export class ChangePasswordComponent implements OnInit {
   reset() {
     // verificar contraseñas iguales
     if (this.values.password !== this.values.passwordTwo) {
-      basicAlert(TYPE_ALERT.WARNING, 'Las contraseñas no coinciden y no es válido para cambiar la contraseña. Procura asegurarte que las contraseñas sean iguales');
+      basicAlert(TYPE_ALERT.WARNING, 'Las contraseñas no coinciden y no es válido para cambiar la contraseña. Procura asegurarte que las contraseñas son iguales');
       return;
     }
-
-    // Enviando la información al servidor
-    this.passwordService.change(this.token, this.values.password).subscribe( result => {
-      if (result.status) {
-        basicAlert(TYPE_ALERT.SUCCESS, result.message);
-        this.router.navigate(['login']);
-        return;
-      }
-      basicAlert(TYPE_ALERT.WARNING, result.message);
-    });
 
     // Enviando la información al servidor
     this.passwordService.change(this.token, this.values.password).subscribe( result => {

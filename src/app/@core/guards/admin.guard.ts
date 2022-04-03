@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import {
   CanActivateChild,
@@ -21,7 +20,6 @@ export class AdminGuard implements CanActivateChild {
     if (this.auth.getSession() !== null) {
       console.log('Estamos logueados');
       const dataDecode = this.decodeToken();
-      console.log(dataDecode);
       // COmprobar que no está caducado el token
       if (dataDecode.exp < new Date().getTime() / 1000) {
         console.log('Sesión caducada');
